@@ -1,0 +1,34 @@
+To compile GEANT code, all the .cc and .hh files:
+`cd build`
+`cmake ..`
+`make -j`
+`./ecalSim`
+----------------------------------------------
+Within the GEANT UI:
+`/run/beamOn 5` // Simulate 5 particles entering the EMCal
+----------------------------------------------
+There are two cases of interest: 1) I want the GUI to see the particle shower and get pretty photos.  2) I need to turn the GUI off so that I can get data of 10,000 collisions or something large.  Here is how to trigger between these two cases:
+1) In the init_vis.mac macro, `/vis/scene/endOfEventAction accumulate 10`
+   In the vis.mac macro, `/tracking/storeTrajectory 1`
+2) In the init_vis.mac macro, `/vis/scene/endOfEventAction refresh`
+   In the vis.mac macro, `/tracking/storeTrajectory 0`
+----------------------------------------------
+To run a macro that automates bash commands or GUI commands:
+`./ecalSim ../macros/run_job.mac`
+This will execute the commands of that macro!  So, currently, I have that macro disabling drawing and GUI usage and running over 10000 events.  Convenient way of handling things.
+----------------------------------------------
+To plot the results in Python, I have created a directory called `.plotstuff`
+Go there and activate the venv with `source /bin/activate`
+Then, `python3 plot.py`
+This runs the `plot.py` python script and outputs a pretty histogram.  Can use this for pretty plotting for now.  Should figure out VS Code instead though.
+----------------------------------------------
+To run the bash script that will automate running over various energies: `bash autoLoop.sh`
+----------------------------------------------
+Running a Job: If I want to run over 100,000 events in batch mode,
+- Go to computer settings and turn off sleep/power-down timers
+- `nohup ./executable_script.sh > name_of_log_file.log 2>&1 &`
+- To check on status and get job ID number: `ps -ef | grep executable_script.sh`
+- To see most recent activity in the job: `tail -f name_of_log_file.log`
+
+----------------------------------------------
+The ecalSim.cc file is the workhorse of the operation.  It initializes each GEANT simulated event, controls the interactive GUI and is called whenever one wishes to simulate N events.
