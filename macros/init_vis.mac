@@ -1,0 +1,4 @@
+/control/execute macros/vis.mac
+/run/initialize
+/vis/viewer/set/autoRefresh true
+/vis/scene/endOfEventAction accumulate 10
