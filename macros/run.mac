@@ -1,0 +1,14 @@
+/control/verbose 1
+/run/verbose 1
+/event/verbose 0
+/tracking/verbose 0
+
+/vis/disable
+/run/initialize
+
+/gun/particle e-
+/gun/energy 10 GeV
+/gun/position 0 0 -10 cm
+/gun/direction 0 0 1
+
+/run/beamOn 5000
